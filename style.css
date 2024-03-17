@@ -8,8 +8,11 @@ h1{
     height: 500px;
     
     grid-template-columns: repeat(3,1fr);
-    grid-template-rows: repeat(3,1fr);
+   
 }
 .cell{
     border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
