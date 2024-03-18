@@ -17,9 +17,8 @@ const GameBoard = (function () {
     const makeBoard =() => {
         for(let i=0; i<gameboard.length; i++){
             const cell = document.createElement("div");
-            gameboard[i] = cell.value;
+            
             cell.setAttribute("class", "cell");
-            //cell.innerHTML = playedClick();
             container.appendChild(cell);
             turn.innerHTML = playerControl.getTurn()+"'s turn";
             cell.addEventListener("click", ()=>{
@@ -29,16 +28,40 @@ const GameBoard = (function () {
                     cell.innerHTML = playerControl.getActivePlayer();
                     gameboard[i] = playerControl.getActivePlayer();
                     console.log(gameboard);
+                    checkWinner(); 
                 }
                 
                 
-            })
+            })  
             
-        }
-            
+        } 
+    }
 
-        
-        
+
+    const checkWinner = () =>{
+        let checkX = 0;
+        let checkO =0;
+       for(let i =0; i<winCondition.length; i++){
+            for(let j=0; j<winCondition[1].length;j++){
+                
+                if(gameboard[winCondition[i][j]] =='X'){
+                    checkX++;
+                    if(checkX == 3){
+                        alert("yes");
+                    }
+                }
+                if(gameboard[winCondition[i][j]] =='O'){
+                    checkO++;
+                    if(checkO == 3){
+                        alert("yes OOOO");
+                    }
+                }
+
+                
+            }
+            checkX =0;
+            checkO =0;
+       }
     }
     return{
         makeBoard,
