@@ -26,20 +26,30 @@ const GameBoard = (function () {
             cell.addEventListener("click", ()=>{
                 if(cell.innerHTML == ""){
                     if(!endOfGame){
-                        maxValue++;
+                        ++maxValue;
                         playerControl.playRound();
                         turn.innerHTML = playerControl.getTurn() +"'s turn";
                         cell.innerHTML = playerControl.getActivePlayer();
                         gameboard[i] = playerControl.getActivePlayer();
                         console.log(gameboard);
                         checkWinner(); 
-                    } 
+                        
+                    }
                 }
                 
                 
             })  
             
         } 
+    }
+    const playAgain =() =>{
+
+            const boardContainer = document.querySelector(".board");
+    
+            const btnPlayAgain = document.createElement("button");
+            btnPlayAgain.innerHTML = "Play again";
+            boardContainer.appendChild(btnPlayAgain);
+        
     }
 
 
@@ -54,6 +64,7 @@ const GameBoard = (function () {
                     if(checkX == 3){
                         turn.innerHTML = "X won";
                         endOfGame =true; 
+                        playAgain();
                     }
                 }
                 else if(gameboard[winCondition[i][j]] =='O'){
@@ -61,10 +72,16 @@ const GameBoard = (function () {
                     if(checkO == 3){
                         turn.innerHTML = "O won";
                         endOfGame = true;
+                        playAgain();
+
                     }
                 }
                 else if(maxValue == 9){
                     turn.innerHTML = "Draw!";
+                    endOfGame = true;
+                    playAgain();
+                    
+
 
                 }
                 
@@ -79,8 +96,12 @@ const GameBoard = (function () {
     return{
         makeBoard,
         
+
+        
     }
 })();
+
+
 
 
 
@@ -116,10 +137,13 @@ const playerControl= (() =>{
         change();
         
       };
+
+      
     return {
         getActivePlayer,
         playRound,
         getTurn,
+        
 
     }
 })();
@@ -146,11 +170,15 @@ btnStart.addEventListener("click", () => {
     
     if(!boardMade){
         GameBoard.makeBoard();
+        
         boardMade=true;
     }
     
 })
 
-
+const btnRestart = document.querySelector("#btnRestart");
+btnRestart.addEventListener("click", ()=>{
+    
+})
 
 
