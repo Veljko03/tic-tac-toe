@@ -3,6 +3,8 @@ const GameBoard = (function () {
     let gameboard =["", "","","","","","","",""];
     const container = document.querySelector(".gameBoard");
     const turn = document.querySelector(".turn");
+    let maxValue = 0;
+    let endOfGame = false;
     let winCondition= [
         [ 0, 1, 2 ],
         [ 3, 4, 5 ], 
@@ -23,12 +25,15 @@ const GameBoard = (function () {
             turn.innerHTML = playerControl.getTurn()+"'s turn";
             cell.addEventListener("click", ()=>{
                 if(cell.innerHTML == ""){
-                    playerControl.playRound();
-                    turn.innerHTML = playerControl.getTurn() +"'s turn";
-                    cell.innerHTML = playerControl.getActivePlayer();
-                    gameboard[i] = playerControl.getActivePlayer();
-                    console.log(gameboard);
-                    checkWinner(); 
+                    if(!endOfGame){
+                        maxValue++;
+                        playerControl.playRound();
+                        turn.innerHTML = playerControl.getTurn() +"'s turn";
+                        cell.innerHTML = playerControl.getActivePlayer();
+                        gameboard[i] = playerControl.getActivePlayer();
+                        console.log(gameboard);
+                        checkWinner(); 
+                    } 
                 }
                 
                 
@@ -47,15 +52,23 @@ const GameBoard = (function () {
                 if(gameboard[winCondition[i][j]] =='X'){
                     checkX++;
                     if(checkX == 3){
-                        alert("yes");
+                        turn.innerHTML = "X won";
+                        endOfGame =true; 
                     }
                 }
-                if(gameboard[winCondition[i][j]] =='O'){
+                else if(gameboard[winCondition[i][j]] =='O'){
                     checkO++;
                     if(checkO == 3){
-                        alert("yes OOOO");
+                        turn.innerHTML = "O won";
+                        endOfGame = true;
                     }
                 }
+                else if(maxValue == 9){
+                    turn.innerHTML = "Draw!";
+
+                }
+                
+            
 
                 
             }
@@ -73,6 +86,7 @@ const GameBoard = (function () {
 
 
 const playerControl= (() =>{
+    
     const players = [
         {
             name:"first player",
