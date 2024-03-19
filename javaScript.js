@@ -49,6 +49,17 @@ const GameBoard = (function () {
             const btnPlayAgain = document.createElement("button");
             btnPlayAgain.innerHTML = "Play again";
             boardContainer.appendChild(btnPlayAgain);
+            btnPlayAgain.addEventListener("click", ()=>{
+                boardContainer.removeChild(btnPlayAgain);
+                endOfGame =false;
+                maxValue = 0;
+                 gameboard =["", "","","","","","","",""];
+                 console.log(gameboard);
+                while(container.lastElementChild){
+                    container.removeChild(container.lastElementChild);
+                }
+                makeBoard();
+            })
         
     }
 
@@ -56,11 +67,13 @@ const GameBoard = (function () {
     const checkWinner = () =>{
         let checkX = 0;
         let checkO =0;
+       
         if(maxValue == 9){
             turn.innerHTML = "Draw!";
             endOfGame = true;
             playAgain();
         }
+
        for(let i =0; i<winCondition.length; i++){
             for(let j=0; j<winCondition[1].length;j++){
                 
@@ -71,6 +84,7 @@ const GameBoard = (function () {
                         turn.innerHTML = "X won";
                         endOfGame =true; 
                         playAgain();
+                        checkX=0;
                     }
                 }
                 else if(gameboard[winCondition[i][j]] =='O'){
@@ -79,6 +93,7 @@ const GameBoard = (function () {
                         turn.innerHTML = "O won";
                         endOfGame = true;
                         playAgain();
+                        checkO=0;
 
                     }
                 }
@@ -177,7 +192,7 @@ btnStart.addEventListener("click", () => {
 
 const btnRestart = document.querySelector("#btnRestart");
 btnRestart.addEventListener("click", ()=>{
-    
+    window.location.reload();
 })
 
 
