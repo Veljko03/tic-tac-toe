@@ -56,9 +56,15 @@ const GameBoard = (function () {
     const checkWinner = () =>{
         let checkX = 0;
         let checkO =0;
+        if(maxValue == 9){
+            turn.innerHTML = "Draw!";
+            endOfGame = true;
+            playAgain();
+        }
        for(let i =0; i<winCondition.length; i++){
             for(let j=0; j<winCondition[1].length;j++){
                 
+               
                 if(gameboard[winCondition[i][j]] =='X'){
                     checkX++;
                     if(checkX == 3){
@@ -76,14 +82,7 @@ const GameBoard = (function () {
 
                     }
                 }
-                else if(maxValue == 9){
-                    turn.innerHTML = "Draw!";
-                    endOfGame = true;
-                    playAgain();
-                    
-
-
-                }
+                
                 
             
 
@@ -95,7 +94,7 @@ const GameBoard = (function () {
     }
     return{
         makeBoard,
-        
+         
 
         
     }
