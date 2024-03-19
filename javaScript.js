@@ -196,6 +196,10 @@ const GameBoard = (function () {
 
 const playerControl= (() =>{
     
+    const playerOne = document.querySelector("#playeOne");
+    const playerTwo = document.querySelector("#playerTwo");
+
+
     const players = [
         {
             name:"first player",

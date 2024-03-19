@@ -30,3 +30,23 @@ h1{
     align-items: center;
     justify-content: center;
 }
+input {
+    border: 2px solid black;
+    margin-bottom: 15px;
+    padding: 5px;
+    border-radius: 5px;
+    border-color: black;
+  }
+  input:focus {
+    background-color: lightblue;
+  }
+  input:user-invalid {
+    border-color: red;
+    
+  }
+  input:user-valid {
+    border-color: green;
+  }
+  form:invalid>#btnStart {
+    pointer-events: none;
+  }
