@@ -3,6 +3,8 @@ const GameBoard = (function () {
     let gameboard =["", "","","","","","","",""];
     const container = document.querySelector(".gameBoard");
     const turn = document.querySelector(".turn");
+    let xWon=0;
+    let oWon = 0;
     let maxValue = 0;
     let endOfGame = false;
     let winCondition= [
@@ -33,7 +35,7 @@ const GameBoard = (function () {
                         gameboard[i] = playerControl.getActivePlayer();
                         console.log(gameboard);
                         checkWinner(); 
-                        
+                        isOverGame();
                     }
                 }
                 
@@ -42,15 +44,15 @@ const GameBoard = (function () {
             
         } 
     }
-    const playAgain =() =>{
+    const playNextRound =() =>{
 
-            const boardContainer = document.querySelector(".board");
+           
     
-            const btnPlayAgain = document.createElement("button");
-            btnPlayAgain.innerHTML = "Play again";
-            boardContainer.appendChild(btnPlayAgain);
-            btnPlayAgain.addEventListener("click", ()=>{
-                boardContainer.removeChild(btnPlayAgain);
+            const btnPlayNextRound = document.createElement("button");
+            btnPlayNextRound.innerHTML = "Play next round";
+            boardContainer.appendChild(btnPlayNextRound);
+            btnPlayNextRound.addEventListener("click", ()=>{
+                boardContainer.removeChild(btnPlayNextRound);
                 endOfGame =false;
                 maxValue = 0;
                  gameboard =["", "","","","","","","",""];
@@ -62,16 +64,80 @@ const GameBoard = (function () {
             })
         
     }
+    const result = document.querySelector(".result");
+    const boardContainer = document.querySelector(".board");
+    
+    const isOverGame = () =>{
+         if(xWon==2 && oWon==2){
+            const over = document.createElement("h1");
+            over.textContent ="Game over it's draw"
+            result.appendChild(over);
+            playAgain();
+
+        }
+        
+        else if(xWon ==2){
+            const over = document.createElement("h1");
+            over.textContent ="Game over x won"
+            result.appendChild(over);
+            playAgain();
+
+        }
+        else if(oWon == 2){
+            const over = document.createElement("h1");
+            over.textContent ="Game over O won"
+            result.appendChild(over);
+            playAgain();
+            
+
+        } 
+    }
+
+
+    const playAgain = () =>{
+        boardContainer.removeChild(boardContainer.lastElementChild);
+
+        const btnPlayAgain = document.createElement("button");
+        btnPlayAgain.textContent = "Play again";
+
+        boardContainer.appendChild(btnPlayAgain);
+        btnPlayAgain.addEventListener("click",()=>{
+            endOfGame =false;
+            maxValue = 0;
+            xWon = 0;
+            oWon =0;
+             gameboard =["", "","","","","","","",""];
+             console.log(gameboard);
+            while(container.lastElementChild){
+                container.removeChild(container.lastElementChild);
+            }
+            while(result.lastElementChild){
+                result.removeChild(result.lastElementChild);
+            }
+            makeBoard();
+            boardContainer.removeChild(btnPlayAgain);
+        })
+        
+    }
 
 
     const checkWinner = () =>{
         let checkX = 0;
         let checkO =0;
+        
+
+        
        
         if(maxValue == 9){
             turn.innerHTML = "Draw!";
             endOfGame = true;
-            playAgain();
+            ++xWon;
+            ++oWon;
+            playNextRound();
+            const displayResult = document.createElement("p");
+                        displayResult.textContent = xWon + " : "+ oWon;
+                        result.appendChild(displayResult);
+
         }
 
        for(let i =0; i<winCondition.length; i++){
@@ -83,8 +149,12 @@ const GameBoard = (function () {
                     if(checkX == 3){
                         turn.innerHTML = "X won";
                         endOfGame =true; 
-                        playAgain();
+                        playNextRound();
                         checkX=0;
+                        xWon++;
+                        const displayResult = document.createElement("p");
+                        displayResult.textContent = xWon + " : "+ oWon;
+                        result.appendChild(displayResult);
                     }
                 }
                 else if(gameboard[winCondition[i][j]] =='O'){
@@ -92,8 +162,12 @@ const GameBoard = (function () {
                     if(checkO == 3){
                         turn.innerHTML = "O won";
                         endOfGame = true;
-                        playAgain();
+                        playNextRound();
                         checkO=0;
+                        oWon++;
+                        const displayResult = document.createElement("p");
+                        displayResult.textContent = xWon + " : "+ oWon;
+                        result.appendChild(displayResult);
 
                     }
                 }
