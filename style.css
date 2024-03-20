@@ -25,7 +25,7 @@ h1{
     align-items: center;
 }
 
-.board, .title, .disTurn{
+.board, .title, .disTurn, .score{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -49,4 +49,9 @@ input {
   }
   form:invalid>#btnStart {
     pointer-events: none;
+  }
+
+  .result{
+    font-size: 25px;
+    font-weight: bold;
   }

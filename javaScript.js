@@ -17,6 +17,9 @@ const GameBoard = (function () {
         [ 0, 4, 8 ],
         [ 6, 4, 2 ], 
     ]
+        
+
+       
     
     const makeBoard =() => {
         for(let i=0; i<gameboard.length; i++){
@@ -68,7 +71,7 @@ const GameBoard = (function () {
     const boardContainer = document.querySelector(".board");
     
     const isOverGame = () =>{
-         if(xWon==2 && oWon==2){
+         if(xWon==3 && oWon==3){
             const over = document.createElement("h1");
             over.textContent ="Game over it's draw"
             result.appendChild(over);
@@ -76,14 +79,14 @@ const GameBoard = (function () {
 
         }
         
-        else if(xWon ==2){
+        else if(xWon ==3){
             const over = document.createElement("h1");
             over.textContent ="Game over x won"
             result.appendChild(over);
             playAgain();
 
         }
-        else if(oWon == 2){
+        else if(oWon == 3){
             const over = document.createElement("h1");
             over.textContent ="Game over O won"
             result.appendChild(over);
@@ -147,7 +150,7 @@ const GameBoard = (function () {
                 if(gameboard[winCondition[i][j]] =='X'){
                     checkX++;
                     if(checkX == 3){
-                        turn.innerHTML = "X won";
+                        turn.innerHTML =   "X won this round";
                         endOfGame =true; 
                         playNextRound();
                         checkX=0;
@@ -160,7 +163,7 @@ const GameBoard = (function () {
                 else if(gameboard[winCondition[i][j]] =='O'){
                     checkO++;
                     if(checkO == 3){
-                        turn.innerHTML = "O won";
+                        turn.innerHTML = "O won this round";
                         endOfGame = true;
                         playNextRound();
                         checkO=0;
@@ -184,7 +187,6 @@ const GameBoard = (function () {
     return{
         makeBoard,
          
-
         
     }
 })();
@@ -196,22 +198,24 @@ const GameBoard = (function () {
 
 const playerControl= (() =>{
     
-    const playerOne = document.querySelector("#playeOne");
-    const playerTwo = document.querySelector("#playerTwo");
+    
+    
 
+   
 
     const players = [
         {
-            name:"first player",
+            name: "Player one",
             value: "X"
         },
         {
-            name:"second player",
+            name: "Player two",
             value: "O"
         }
     ];
     let activePlayerValue = players[1].value;
     let activePlayerName = players[0].name;
+    console.log(activePlayerName);
     const change = () => {
         if(activePlayerValue == players[1].value && activePlayerName == players[0].name){
             activePlayerValue=    players[0].value;
@@ -242,24 +246,11 @@ const playerControl= (() =>{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const btnStart = document.querySelector("#btnStart");
 let boardMade;
 btnStart.addEventListener("click", () => {
     
+    console.log(playerTwo);
     if(!boardMade){
         GameBoard.makeBoard();
         
